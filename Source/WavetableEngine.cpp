@@ -123,7 +123,13 @@ void WavetableEngine::renderNextBlock (juce::AudioBuffer<float>& buffer,
 
     const juce::ScopedLock sl (wavetableLock);
 
-    const int safeSamples = juce::jmin (numSamples, voiceBuf.getNumSamples());
+    if (voiceBuf.getNumSamples() < numSamples)
+{
+    voiceBuf.setSize (2, numSamples, false, true, true);
+    layerBuf.setSize (2, numSamples, false, true, true);
+}
+
+const int safeSamples = numSamples;
 
     for (auto& layer : oscLayers)
     {
@@ -222,7 +228,7 @@ void WavetableEngine::handleNoteOn (int note, float velocity)
             SynthVoice* target    = nullptr;
             int         targetIdx = 0;
 
-            for (int i = 0; i < MAX_VOICES; i++)
+            for (size_t i = 0; i < layer.voices.size(); ++i)
             {
                 if (!layer.voices[i].isActive())
                 {
