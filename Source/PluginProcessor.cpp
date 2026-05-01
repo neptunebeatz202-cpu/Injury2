@@ -549,7 +549,7 @@ void InjuryProcessor::parameterChanged (const juce::String& paramID, float newVa
 //==============================================================================
 juce::AudioProcessorEditor* InjuryProcessor::createEditor()
 {
-    return new InjuryEditor (*this);
+    return new juce::GenericAudioProcessorEditor (*this);
 }
 
 void InjuryProcessor::getStateInformation (juce::MemoryBlock& destData)
