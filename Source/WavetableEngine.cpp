@@ -123,8 +123,6 @@ void WavetableEngine::renderNextBlock (juce::AudioBuffer<float>& buffer,
 
     const juce::ScopedLock sl (wavetableLock);
 
-    const juce::ScopedLock sl (wavetableLock);
-
     const int safeSamples = juce::jmin (numSamples, voiceBuf.getNumSamples());
 
     for (auto& layer : oscLayers)
